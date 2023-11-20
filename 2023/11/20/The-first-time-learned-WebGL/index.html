@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Echo">
+
+
+
+
+
+<title>The first time learned WebGL | Hexo</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Echo&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Echo&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">The first time learned WebGL</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Echo</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">November 20, 2023&nbsp;&nbsp;18:25:11</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/WebGl/">WebGl</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>With the development of front-end technology, I first approached Threejs two years ago because of business needs. Of course, this isn’t first time I’ve heard of Threejs. When I had some basic knowledge of Threejs. I became interested in webgl.</p>
+<p>I will record my learning path. And I would be pleasured if these blogs could helpful to you.</p>
+<p>Firstly, I learned the basics of WebGL at bilibili,  <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Kb4y1x72q?p=15&spm_id_from=pageDriver&vd_source=4435ed82b7721b13787af03a6fe6bb26">here is the link</a>. I want to say, dont’t worroy about what you don’t understand in the beginning. Just follow the course, quantitative change would produes qualitative change.</p>
+<p>Here are some of my summaries after watched the basic course. </p>
+<ul>
+<li>WebGL is developed on canvas, so we need create a canvas label in html page, like this:</li>
+</ul>
+<p>​		<code>&lt;canvas id=&quot;webglCanvas&quot; width=&quot;700&quot; height=&quot;700&quot;&gt;&lt;/canvas&gt;</code></p>
+<ul>
+<li><p>Then let’s add some js code to the body tag and draw a triangle on the canvas</p>
+<ul>
+<li><p>firstly, we need a webgl context</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">let webgl;</span><br><span class="line">// Set vertex shader content</span><br><span class="line">let vertexString = `</span><br><span class="line">    attribute vec3 a_position;</span><br><span class="line">    void main() &#123;</span><br><span class="line">        gl_Position = vec4(a_position, 1.0);</span><br><span class="line">    &#125;</span><br><span class="line">`;</span><br><span class="line">// Set fragment shader content</span><br><span class="line">let fragmentString = `</span><br><span class="line">    void main() &#123;</span><br><span class="line">        gl_FragColor = vec4(0.0, 0.0, 1.0, 1.0);</span><br><span class="line">    &#125;</span><br><span class="line">`;</span><br><span class="line">function init() &#123;&#125;</span><br><span class="line">function initWebgl() &#123;&#125;</span><br><span class="line">function initShader() &#123;&#125;</span><br><span class="line">function initBuffer() &#123;&#125;</span><br><span class="line">function draw();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>when the page loaded, set the js code trigger this method</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function init() &#123;</span><br><span class="line">    initWebgl();</span><br><span class="line">    initShader();</span><br><span class="line">    initBuffer();</span><br><span class="line">    draw();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Here, the webgl context is obtained and set through the document element</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function initWebgl() &#123;</span><br><span class="line">    // Get the canvas element through id</span><br><span class="line">    const div = document.getElementById(&#x27;webglCanvas&#x27;);</span><br><span class="line">    // Assign webgl context to global object webgl</span><br><span class="line">    webgl = div.getContext(&#x27;webgl&#x27;);</span><br><span class="line">    // Set the webgl view size</span><br><span class="line">    webgl.viewport(0, 0, div.clientWidth, div.clientHeight);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Next, we need to initialize shaders, there inclouding vertex shader and fragment shader</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">function initShader() &#123;</span><br><span class="line">    // create shader container</span><br><span class="line">    let shaderVs = webgl.createShader(webgl.VERTEX_SHADER);</span><br><span class="line">    let shaderFs = webgl.createShader(webgl.FRAGMENT_SHADER);</span><br><span class="line"></span><br><span class="line">    // Associate the shader container with the content</span><br><span class="line">    webgl.shaderSource(shaderVs, vertexString);</span><br><span class="line">    webgl.shaderSource(shaderFs, fragmentString);</span><br><span class="line"></span><br><span class="line">    // compile shader</span><br><span class="line">    webgl.compileShader(shaderVs);</span><br><span class="line">    webgl.compileShader(shaderFs);</span><br><span class="line"></span><br><span class="line">    // Create program</span><br><span class="line">    let program = webgl.createProgram();</span><br><span class="line">    // Associate the shader with program</span><br><span class="line">    webgl.attachShader(program, shaderVs);</span><br><span class="line">    webgl.attachShader(program, shaderFs);</span><br><span class="line"></span><br><span class="line">    webgl.linkProgram(program);</span><br><span class="line">    webgl.useProgram(program);</span><br><span class="line">    webgl.program = program;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Then, we need to set buffer data、create program linkProgram and useProgram</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function initBuffer() &#123;</span><br><span class="line">    // Sets the vertex coordinates of the triangle</span><br><span class="line">    let arr = [</span><br><span class="line">        0.1, 0.4, 0,</span><br><span class="line">        0.1, 0.5, 0,</span><br><span class="line">        0.2, 0.4, 0</span><br><span class="line">    ];</span><br><span class="line">    // Create a buffer and configure it</span><br><span class="line">    let float = new Float32Array(arr);</span><br><span class="line">    let buffer = webgl.createBuffer();</span><br><span class="line">    webgl.bindBuffer(webgl.ARRAY_BUFFER, buffer);</span><br><span class="line">    webgl.bufferData(webgl.ARRAY_BUFFER, float, webgl.STATIC_DRAW);</span><br><span class="line">    </span><br><span class="line">    let aPosition = webgl.getAttribLocation(webgl.program, &#x27;a_position&#x27;);</span><br><span class="line">    webgl.vertexAttribPointer(aPosition, 3, webgl.FLOAT, false, 0, 0);</span><br><span class="line">    webgl.enableVertexAttribArray(aPosition);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Finally, it’s time to draw WebGL in canvas</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function draw() &#123;</span><br><span class="line">    webgl.clearColor(0.0, 0.0, 0.0, 1.0);</span><br><span class="line">    webgl.clear(webgl.COLOR_BUFFER_BIT);</span><br><span class="line">    webgl.drawArrays(webgl.TRIANGLES, 0, 3);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<p>If you need, here the <a target="_blank" rel="noopener" href="https://github.com/1193082625/Webgl-Demo/blob/main/first/drawTriangle.html">full cod link</a>. And if you find any mistakes in this essay, please feel free to comment. My email is <a href="mailto:&#x65;&#99;&#x68;&#x6f;&#x77;&#97;&#110;&#x67;&#x79;&#x75;&#x65;&#64;&#97;&#x6c;&#x69;&#121;&#x75;&#110;&#x2e;&#x63;&#x6f;&#109;">&#x65;&#99;&#x68;&#x6f;&#x77;&#97;&#110;&#x67;&#x79;&#x75;&#x65;&#64;&#97;&#x6c;&#x69;&#121;&#x75;&#110;&#x2e;&#x63;&#x6f;&#109;</a></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Echo</span>
+                    </p>
+                
+                
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Just do it</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/WebGL/"># WebGL</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Echo</span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
