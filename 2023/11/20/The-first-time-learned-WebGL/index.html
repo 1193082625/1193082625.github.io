@@ -156,27 +156,28 @@
         </header>
 
         <div class="post-content">
-            <p>With the development of front-end technology, I first approached Threejs two years ago because of business needs. Of course, this isn’t first time I’ve heard of Threejs. When I had some basic knowledge of Threejs. I became interested in webgl.</p>
-<p>I will record my learning path. And I would be pleasured if these blogs could helpful to you.</p>
-<p>Firstly, I learned the basics of WebGL at bilibili,  <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Kb4y1x72q?p=15&spm_id_from=pageDriver&vd_source=4435ed82b7721b13787af03a6fe6bb26">here is the link</a>. I want to say, dont’t worroy about what you don’t understand in the beginning. Just follow the course, quantitative change would produes qualitative change.</p>
-<p>Here are some of my summaries after watched the basic course. </p>
+            <p>With the development of front-end technology, I first approached Threejs two years ago because of business needs. Of course, this isn’t the first time I’ve heard of Threejs. When I had some basic knowledge of Threejs. I became interested in webgl.</p>
+<p>I will record my learning path, and I would be pleasured if these blogs could be helpful to you.</p>
+<p>Firstly, I learned the basics of WebGL at bilibili,  <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Kb4y1x72q?p=15&spm_id_from=pageDriver&vd_source=4435ed82b7721b13787af03a6fe6bb26">here is the link</a>. I want to say, dont’t worry about what you don’t understand at the beginning. Just follow the course, quantitative change would produe qualitative change.</p>
+<p>Here we go, we will use Webgl to draw a triangle on the page, the page renderings are as follows:</p>
+<p><img src="demo.png" alt="demo"></p>
 <ul>
 <li>WebGL is developed on canvas, so we need create a canvas label in html page, like this:</li>
 </ul>
 <p>​		<code>&lt;canvas id=&quot;webglCanvas&quot; width=&quot;700&quot; height=&quot;700&quot;&gt;&lt;/canvas&gt;</code></p>
 <ul>
-<li><p>Then let’s add some js code to the body tag and draw a triangle on the canvas</p>
+<li><p>Then let’s add some js code to the body tag and draw a triangle on the canvas.</p>
 <ul>
 <li><p>firstly, we need a webgl context</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">let webgl;</span><br><span class="line">// Set vertex shader content</span><br><span class="line">let vertexString = `</span><br><span class="line">    attribute vec3 a_position;</span><br><span class="line">    void main() &#123;</span><br><span class="line">        gl_Position = vec4(a_position, 1.0);</span><br><span class="line">    &#125;</span><br><span class="line">`;</span><br><span class="line">// Set fragment shader content</span><br><span class="line">let fragmentString = `</span><br><span class="line">    void main() &#123;</span><br><span class="line">        gl_FragColor = vec4(0.0, 0.0, 1.0, 1.0);</span><br><span class="line">    &#125;</span><br><span class="line">`;</span><br><span class="line">function init() &#123;&#125;</span><br><span class="line">function initWebgl() &#123;&#125;</span><br><span class="line">function initShader() &#123;&#125;</span><br><span class="line">function initBuffer() &#123;&#125;</span><br><span class="line">function draw();</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>when the page loaded, set the js code trigger this method</p>
+<li><p>when the page loaded, set the js code to trigger method</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function init() &#123;</span><br><span class="line">    initWebgl();</span><br><span class="line">    initShader();</span><br><span class="line">    initBuffer();</span><br><span class="line">    draw();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>Here, the webgl context is obtained and set through the document element</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function initWebgl() &#123;</span><br><span class="line">    // Get the canvas element through id</span><br><span class="line">    const div = document.getElementById(&#x27;webglCanvas&#x27;);</span><br><span class="line">    // Assign webgl context to global object webgl</span><br><span class="line">    webgl = div.getContext(&#x27;webgl&#x27;);</span><br><span class="line">    // Set the webgl view size</span><br><span class="line">    webgl.viewport(0, 0, div.clientWidth, div.clientHeight);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>Next, we need to initialize shaders, there inclouding vertex shader and fragment shader</p>
+<li><p>Next, we need to initialize shaders, inclouding vertex shader and fragment shader</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">function initShader() &#123;</span><br><span class="line">    // create shader container</span><br><span class="line">    let shaderVs = webgl.createShader(webgl.VERTEX_SHADER);</span><br><span class="line">    let shaderFs = webgl.createShader(webgl.FRAGMENT_SHADER);</span><br><span class="line"></span><br><span class="line">    // Associate the shader container with the content</span><br><span class="line">    webgl.shaderSource(shaderVs, vertexString);</span><br><span class="line">    webgl.shaderSource(shaderFs, fragmentString);</span><br><span class="line"></span><br><span class="line">    // compile shader</span><br><span class="line">    webgl.compileShader(shaderVs);</span><br><span class="line">    webgl.compileShader(shaderFs);</span><br><span class="line"></span><br><span class="line">    // Create program</span><br><span class="line">    let program = webgl.createProgram();</span><br><span class="line">    // Associate the shader with program</span><br><span class="line">    webgl.attachShader(program, shaderVs);</span><br><span class="line">    webgl.attachShader(program, shaderFs);</span><br><span class="line"></span><br><span class="line">    webgl.linkProgram(program);</span><br><span class="line">    webgl.useProgram(program);</span><br><span class="line">    webgl.program = program;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>Then, we need to set buffer data、create program linkProgram and useProgram</p>
@@ -187,7 +188,20 @@
 </ul>
 </li>
 </ul>
-<p>If you need, here the <a target="_blank" rel="noopener" href="https://github.com/1193082625/Webgl-Demo/blob/main/first/drawTriangle.html">full cod link</a>. And if you find any mistakes in this essay, please feel free to comment. My email is <a href="mailto:&#x65;&#99;&#x68;&#x6f;&#x77;&#97;&#110;&#x67;&#x79;&#x75;&#x65;&#64;&#97;&#x6c;&#x69;&#121;&#x75;&#110;&#x2e;&#x63;&#x6f;&#109;">&#x65;&#99;&#x68;&#x6f;&#x77;&#97;&#110;&#x67;&#x79;&#x75;&#x65;&#64;&#97;&#x6c;&#x69;&#121;&#x75;&#110;&#x2e;&#x63;&#x6f;&#109;</a></p>
+<p>Here are some of my summaries after watching the basic course:</p>
+<ul>
+<li><p>The browser and Webgl have their own coordinate systems, the brower takes the upper left corner as it’s origin, and Webgl takes the canvas center as it’s coordinate origin</p>
+<p><img src="%E5%9D%90%E6%A0%87%E7%B3%BB.png" alt="坐标系"></p>
+</li>
+<li><p>Shader , in Webgl we need set vertex shader and fragment shader, and we use attribute or uniform to set the data</p>
+<p><img src="%E7%AE%A1%E7%BA%BF.png" alt="管线"></p>
+</li>
+<li><p>Buffer, we use typed array to set buffer and bind this buffer to Webgl program</p>
+</li>
+<li><p>Then, empty the canvas and draw with drawArrays or drawElements API</p>
+</li>
+</ul>
+<p>If you need, here are the <a target="_blank" rel="noopener" href="https://github.com/1193082625/Webgl-Demo/blob/main/first/drawTriangle.html">full cod link</a>. And if you find any mistakes in this article, please feel free to comment. My email is <a href="mailto:&#x65;&#99;&#x68;&#111;&#x77;&#97;&#x6e;&#x67;&#121;&#x75;&#101;&#x40;&#97;&#x6c;&#x69;&#121;&#117;&#110;&#x2e;&#99;&#x6f;&#x6d;">&#x65;&#99;&#x68;&#111;&#x77;&#97;&#x6e;&#x67;&#121;&#x75;&#101;&#x40;&#97;&#x6c;&#x69;&#121;&#117;&#110;&#x2e;&#99;&#x6f;&#x6d;</a></p>
 
         </div>
 
@@ -204,7 +218,7 @@
                 
                      <p class="copyright-item">
                          <span>Slogan:</span>
-                         <span>Just do it</span>
+                         <span>It's time for change</span>
                      </p>
                 
 
