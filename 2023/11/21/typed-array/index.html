@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Echo">
+
+
+
+
+
+<title>Typed array | Hexo</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Echo&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Echo&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Typed array</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Echo</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">November 21, 2023&nbsp;&nbsp;9:26:37</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/JS/">JS</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>In the front-end developing, usually use the untyped Array. In order to deal with the large amount of vertex data in webgl introduced in ECMAScript 2015 type array.</p>
+<p>The biggest effect of typed arrays to improve the perfformance of the array, the browser knows in advance the data type in the array, so it is more efficient to process. Js array internal implementation if the list, can dynamically increase and reduce the elements, but more elements, the performance will be poor, typed array management is a continuous memory area, know the starting position of this memory, you can through the position +N* offset (an addition a multiplication operation) access to the nth position of the elements. array, on the other hand, has to be search through a linked list one by one.</p>
+<p>Typed Array split the implementation into buffers and views. The ArrayBuffer describes a piece of binary data in memory that has no format and provides no mechanism to access its contents. To access the memory contained in the cache object, you need to use views. Views can convert binary data into an actual typed array.</p>
+<p>The buffer and view areas work as follows:</p>
+<p><img src="work.png" alt="工作方式"></p>
+<p>A buffer can be provided to multiple views for reading, different types of views to read the memory length is different, read out of the data format is different.</p>
+<p><img src="view.png" alt="view"></p>
+<h4 id="Let’s-look-at-a-simple-example"><a href="#Let’s-look-at-a-simple-example" class="headerlink" title="Let’s look at a simple example:"></a>Let’s look at a simple example:</h4><ul>
+<li><p>First, let’s create a 16-byte fixed-length buffer:</p>
+<p><code>let buffer = new ArrayBuffer(16);</code></p>
+<p>The js code generates a 16-byte area of memory, each byte having a default value of 0. 1 Byte &#x3D; 8 bit, 1 bit is a binary bit ( 0 or 1 ). That’s to say, the buffer is 16 * 8 bit, each binary bit is 0.</p>
+</li>
+<li><p>In order to read and write this buffer, we need to assign a view to it. There are two types of views, one is the TypedArray view, which includes a total of 9 types, and the other is the DataView view, which can customize the composite type</p>
+<ul>
+<li><p>Here we create a view, that will format the data in the buffer as a 32-bit array of singed integers:</p>
+<p><code>let int32View = new Int32Array(buffer);</code></p>
+</li>
+<li><p>Now we can access the elements in this array just like a normal array</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>; i&lt;int32View.<span class="property">length</span>; i++) &#123;</span><br><span class="line">	int32View[i] = i * <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// This code fills the array with [0, 2, 4, 6]</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p> <img src="demo1.png" alt="demo1"></p>
+<ul>
+<li><p>If we create another view, this view format the data in buffer as a 16-bit array of singed integers:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> int16View = <span class="keyword">new</span> <span class="title class_">Int16Array</span>(buffer);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>; i&lt;int16View.<span class="property">length</span>; i++) &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(int16View[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// This code fills the array with [0, 0, 2, 0, 4, 0, 6, 0]</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p> <img src="demo2.png" alt="demo2"></p>
+<ul>
+<li><p>Then, guss what happens if we do this</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int16View[<span class="number">0</span>]=<span class="number">32</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Entry 0 in the 32-bit array is now&#x27;</span> + int32View[<span class="number">0</span>]);</span><br><span class="line"><span class="comment">// It will be 32. Which means, both arrays arw views of the same data in different formats, which you can view using either view types</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p> <img src="demo3.png" alt="demo3"></p>
+<p>The purpose of data is different, the required precision and form are naturally different, such as the vertex index can use integers, according to the number of vertices can choose unit8、unit16 or unit32, the vertex position is generally used to represent the floating point number, the floating point number can choose different precision representation.</p>
+<p><img src="%E9%A1%B6%E7%82%B9%E6%95%B0%E6%8D%AE.png" alt="顶点数据"></p>
+</li>
+</ul>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Echo</span>
+                    </p>
+                
+                
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>It's time for change</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Array/"># Array</a>
+                    
+                        <a href="/tags/Webgl/"># Webgl</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2023/11/20/The-first-time-learned-WebGL/">The first time learned WebGL</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Echo</span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
